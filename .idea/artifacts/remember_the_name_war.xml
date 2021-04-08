@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="remember-the-name-1.0-SNAPSHOT.war">
+    <root id="archive" name="Remember the Name.war">
       <element id="artifact" artifact-name="remember-the-name:war exploded" />
     </root>
   </artifact>
