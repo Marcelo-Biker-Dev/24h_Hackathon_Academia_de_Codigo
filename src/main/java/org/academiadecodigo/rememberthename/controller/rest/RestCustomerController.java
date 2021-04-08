@@ -1,6 +1,11 @@
 package org.academiadecodigo.rememberthename.controller.rest;
 
 
+import org.academiadecodigo.rememberthename.command.CustomerDto;
+import org.academiadecodigo.rememberthename.converters.CustomerDtoToCustomer;
+import org.academiadecodigo.rememberthename.converters.CustomerToCustomerDto;
+import org.academiadecodigo.rememberthename.persistence.model.Customer;
+import org.academiadecodigo.rememberthename.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -9,9 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -159,12 +162,9 @@ public class RestCustomerController {
 
             customerService.delete(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-        } catch (AssociationExistsException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-        } catch (CustomerNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
 }

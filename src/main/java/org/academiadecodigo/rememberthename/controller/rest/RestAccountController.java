@@ -1,6 +1,11 @@
 package org.academiadecodigo.rememberthename.controller.rest;
 import org.academiadecodigo.rememberthename.command.ReservationDto;
+import org.academiadecodigo.rememberthename.converters.ReservationDtoToReservation;
+import org.academiadecodigo.rememberthename.converters.ReservationToReservationDto;
+import org.academiadecodigo.rememberthename.persistence.model.Customer;
+import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 import org.academiadecodigo.rememberthename.service.CustomerService;
+import org.academiadecodigo.rememberthename.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,10 +16,11 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * REST controller responsible for {@link Account} related CRUD operations
+ * REST controller responsible for {@link Reservation} related CRUD operations
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -22,9 +28,9 @@ import java.util.stream.Collectors;
 public class RestAccountController {
 
     private CustomerService customerService;
-    private AccountService accountService;
-    private AccountToAccountDto accountToAccountDto;
-    private AccountDtoToAccount accountDtoToAccount;
+    private ReservationService reservationService;
+    private ReservationDtoToReservation reservationDtoToReservation;
+    private ReservationToReservationDto reservationToReservationDto;
 
     /**
      * Sets the customer service
@@ -39,31 +45,31 @@ public class RestAccountController {
     /**
      * Sets the account service
      *
-     * @param accountService the account service to set
+     * @param reservationService the account service to set
      */
     @Autowired
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
+    public void setAccountService(ReservationService reservationService) {
+        this.reservationService = reservationService;
     }
 
     /**
      * Sets the converter for converting between account model object and account DTO
      *
-     * @param accountToAccountDto the account model object to account DTO converter to set
+     * @param reservationToReservationDto the account model object to account DTO converter to set
      */
     @Autowired
-    public void setAccountToAccountDto(AccountToAccountDto accountToAccountDto) {
-        this.accountToAccountDto = accountToAccountDto;
+    public void setAccountToAccountDto(ReservationToReservationDto reservationToReservationDto) {
+        this.reservationToReservationDto = reservationToReservationDto;
     }
 
     /**
      * Sets the converter for converting between account DTO and account model objects
      *
-     * @param accountDtoToAccount the account DTO to account converter to set
+     * @param reservationDtoToReservation the account DTO to account converter to set
      */
     @Autowired
-    public void setAccountDtoToAccount(AccountDtoToAccount accountDtoToAccount) {
-        this.accountDtoToAccount = accountDtoToAccount;
+    public void setAccountDtoToAccount(ReservationDtoToReservation reservationDtoToReservation) {
+        this.reservationDtoToReservation = reservationDtoToReservation;
     }
 
     /**
@@ -72,8 +78,8 @@ public class RestAccountController {
      * @param cid the customer id
      * @return the response entity
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account")
-    public ResponseEntity<List<AccountDto>> listCustomerAccounts(@PathVariable Integer cid) {
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/reservations")
+    public ResponseEntity<List<ReservationDto>> listCustomerReservations(@PathVariable Integer cid) {
 
         Customer customer = customerService.get(cid);
 
@@ -81,9 +87,9 @@ public class RestAccountController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<AccountDto> accountDtos = customer.getAccounts().stream().map(account -> accountToAccountDto.convert(account)).collect(Collectors.toList());
+        List<ReservationDto> reservationDtos = customer.getReservations().stream().map(reservation -> reservationToReservationDto.convert(reservation)).collect(Collectors.toList());
 
-        return new ResponseEntity<>(accountDtos, HttpStatus.OK);
+        return new ResponseEntity<>(reservationDtos, HttpStatus.OK);
     }
 
     /**
@@ -93,55 +99,54 @@ public class RestAccountController {
      * @param aid the account id
      * @return the response entity
      */
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account/{aid}")
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/reservations/{aid}")
     public ResponseEntity<ReservationDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
-        Account account = accountService.get(aid);
+        Reservation reservation = reservationService.get(aid);
 
-        if (account == null || account.getCustomer() == null) {
+        if (reservation == null || reservation.getCustomer() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        if (!account.getCustomer().getId().equals(cid)) {
+        if (!reservation.getCustomer().getId().equals(cid)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(accountToAccountDto.convert(account), HttpStatus.OK);
+        return new ResponseEntity<>(reservationToReservationDto.convert(reservation), HttpStatus.OK);
     }
 
     /**
      * Adds an account
      *
      * @param cid                  the customer id
-     * @param accountDto           the account DTO
+     * @param reservationDto           the account DTO
      * @param bindingResult        the binding result object
      * @param uriComponentsBuilder the uri components builder object
      * @return the response entity
      */
     @RequestMapping(method = RequestMethod.POST, path = "/{cid}/account")
-    public ResponseEntity<?> addAccount(@PathVariable Integer cid, @Valid @RequestBody AccountDto accountDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<?> addAccount(@PathVariable Integer cid, @Valid @RequestBody ReservationDto reservationDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
-        if (bindingResult.hasErrors() || accountDto.getId() != null) {
+        if (bindingResult.hasErrors() || reservationDto.getId() != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         try {
 
-            Account account = customerService.addAccount(cid, accountDtoToAccount.convert(accountDto));
+            Reservation reservation = customerService.addReservation(cid, reservationDtoToReservation.convert(reservationDto));
 
-            UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + cid + "/account/" + account.getId()).build();
+            UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + cid + "/account/" + reservation.getId()).build();
             HttpHeaders headers = new HttpHeaders();
             headers.setLocation(uriComponents.toUri());
 
             return new ResponseEntity<>(headers, HttpStatus.CREATED);
 
-        } catch (CustomerNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        } catch (TransactionInvalidException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        return null;
     }
 
     /**
@@ -156,20 +161,14 @@ public class RestAccountController {
 
         try {
 
-            customerService.closeAccount(cid, aid);
+            customerService.closeReservation(cid, aid);
 
             return new ResponseEntity<>(HttpStatus.OK);
 
-        } catch (CustomerNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        } catch (AccountNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        } catch (TransactionInvalidException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        return null;
     }
 }
 

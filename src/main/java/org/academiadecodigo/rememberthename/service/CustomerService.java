@@ -1,6 +1,7 @@
 package org.academiadecodigo.rememberthename.service;
 
 import org.academiadecodigo.rememberthename.persistence.model.Customer;
+import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 
 import java.util.List;
 import java.util.Set;
@@ -17,4 +18,7 @@ public interface CustomerService {
 
     Set<Integer> listCustomerReservationIds(Integer id);
 
+    Reservation addReservation(Integer cid, Reservation convert);
+
+    void closeReservation(Integer cid, Integer aid);
 }
