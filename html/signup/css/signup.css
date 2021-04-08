@@ -1,0 +1,16 @@
+body {
+    background-image: url('/globalresources/parapente7c.jpg');
+}
+
+.container-fluid {
+    padding: 50px;
+}
+
+.container {
+    background-color: white;
+    padding: 50px;
+}
+
+.makeIn {
+    background-color: transparent;
+}
