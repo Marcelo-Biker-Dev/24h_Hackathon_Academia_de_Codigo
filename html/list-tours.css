@@ -96,7 +96,7 @@ body {
     line-height: 24px;
     font-weight: 400;
     color: #212112;
-    background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg');
+    /*  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat-back.svg'); */
     background-position: center;
     background-repeat: repeat;
     background-size: 7%;
@@ -684,11 +684,53 @@ body.dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 .list-tours-box {
-    width: 80%;
+    width: 100%;
     margin: auto;
+    background-color: rgba(1, 53, 165, 0.5);
+    padding: 3%;
 }
 
 input,
 textarea {
     width: 100%;
+}
+
+.cover-image {
+    background-image: url("/resources/miradouro-cover.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 200px;
+}
+
+.body-booking {
+    margin-top: 100px;
+}
+
+.social-media {
+    background-color: grey;
+}
+
+.fab {
+    border-radius: 50%;
+}
+
+.images-div-tours {
+    background-color: cadetblue;
+    margin: auto;
+    padding: 3%;
+    width: 100%;
+    margin: auto;
+}
+
+.images-div-tours-transparent {
+    width: 60%;
+    margin: auto;
+}
+
+.destak-box {
+    width: 70%;
+    margin: auto;
+    padding: 3%;
+    justify-content: center;
+    text-align: center;
 }
