@@ -19,6 +19,13 @@ public class CustomerDtoToCustomer implements Converter<CustomerDto, Customer> {
     @Override
     public Customer convert(CustomerDto customerDto) {
 
+        Customer customer = (customerDto.getId()) != null ? customerService.get(customerDto.getId()) : new Customer();
 
+        customer.setFirstName(customerDto.getFirstName());
+        customer.setLastName(customerDto.getLastName());
+        customer.setEmail(customerDto.getEmail());
+        customer.setPhone(customerDto.getPhone());
+
+        return customer;
     }
 }

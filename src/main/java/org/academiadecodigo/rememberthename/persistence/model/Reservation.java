@@ -31,4 +31,20 @@ public class Reservation extends AbstractModel {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    public int getNumberOfClients() {
+        return numberOfClients;
+    }
+
+    public void setNumberOfClients(int numberOfClients) {
+        this.numberOfClients = numberOfClients;
+    }
+
+    public Date getPickUpDate() {
+        return pickUpDate;
+    }
+
+    public void setPickUpDate(Date pickUpDate) {
+        this.pickUpDate = pickUpDate;
+    }
 }
