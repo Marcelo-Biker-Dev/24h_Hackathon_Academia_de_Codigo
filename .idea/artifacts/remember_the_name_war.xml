@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="remember-the-name:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>remember-the-name</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="remember-the-name-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="remember-the-name:war exploded" />
+    </root>
+  </artifact>
+</component>
