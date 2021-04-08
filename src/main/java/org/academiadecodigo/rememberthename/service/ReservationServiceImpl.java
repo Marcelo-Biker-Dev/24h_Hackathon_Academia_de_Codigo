@@ -6,21 +6,23 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ReservationServiceImpl {
-
-    private Map<Integer, Reservation> reservationMap = new HashMap<>();
+public class ReservationServiceImpl extends AbstractService<Reservation> implements ReservationService{
 
 
-    private Integer getNextId() {
-        return reservationMap.isEmpty() ? 1 : Collections.max(reservationMap.keySet()) + 1;
+    @Override
+    public Reservation get(Integer id) {
+        return modelMap.get(id);
     }
 
-    public void add(Reservation reservation) {
+    @Override
+    public Integer add(Reservation reservation) {
 
         if (reservation.getId() == null) {
             reservation.setId(getNextId());
         }
 
-        reservationMap.put(reservation.getId(), reservation);
+        modelMap.put(reservation.getId(), reservation);
+
+        return reservation.getId();
     }
 }

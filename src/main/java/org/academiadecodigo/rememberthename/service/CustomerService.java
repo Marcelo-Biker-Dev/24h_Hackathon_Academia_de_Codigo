@@ -9,9 +9,12 @@ public interface CustomerService {
 
     Customer get(Integer id);
 
+    Customer save(Customer customer);
+
+    void delete(Integer id);
+
     List<Customer> list();
 
-    Set<Integer> listCustomerAccountIds(Integer id);
+    Set<Integer> listCustomerReservationIds(Integer id);
 
-    void add(Customer customer);
 }

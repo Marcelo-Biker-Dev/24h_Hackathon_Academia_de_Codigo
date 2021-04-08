@@ -1,40 +1,53 @@
 package org.academiadecodigo.rememberthename.service;
 
+import org.academiadecodigo.rememberthename.model.AbstractModel;
 import org.academiadecodigo.rememberthename.model.Customer;
 import org.academiadecodigo.rememberthename.model.Reservation;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class CustomerServiceImpl {
+public class CustomerServiceImpl extends AbstractService<Customer> implements CustomerService{
 
-    private Map<Integer, Customer> customerMap = new HashMap<>();
 
-    private Integer getNextId() {
-        return customerMap.isEmpty() ? 1 :Collections.max(customerMap.keySet()) +1;
-    }
-
+    @Override
     public Customer get(Integer id) {
-        return customerMap.get(id);
+        return modelMap.get(id);
     }
 
-    public Set<Integer> listCustomerReservationsIds (Integer id) {
-
-        Set<Integer> reservationIds = new HashSet<>();
-        List<Reservation> reservationList = get(id).getReservations();
-
-        for (Reservation reservation : reservationList) {
-            reservationIds.add(reservation.getId());
-        }
-
-        return reservationIds;
-    }
-
-    public void add(Customer customer) {
+    @Override
+    public Customer save(Customer customer) {
 
         if (customer.getId() == null) {
             customer.setId(getNextId());
         }
 
-        customerMap.put(customer.getId(), customer);
+        modelMap.put(customer.getId(), customer);
+        return customer;
+    }
+
+    public void delete(Integer id) {
+        Customer customer = get(id);
+
+        if (!customer.getReservations().isEmpty()) {
+
+        }
+        modelMap.remove(id);
+    }
+
+    @Override
+    public List<Customer> list() {
+        return new ArrayList<>(modelMap.values());
+    }
+
+
+    @Override
+    public Set<Integer> listCustomerReservationIds (Integer id) {
+
+        List<Reservation> reservations = modelMap.get(id).getReservations();
+
+        return reservations.stream()
+                .map(AbstractModel::getId)
+                .collect(Collectors.toSet());
     }
 }
