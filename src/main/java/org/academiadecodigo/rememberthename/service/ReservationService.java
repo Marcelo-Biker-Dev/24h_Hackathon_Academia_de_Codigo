@@ -1,6 +1,6 @@
 package org.academiadecodigo.rememberthename.service;
 
-import org.academiadecodigo.rememberthename.model.Reservation;
+import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 
 public interface ReservationService {
 

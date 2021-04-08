@@ -1,8 +1,8 @@
 package org.academiadecodigo.rememberthename.service;
 
-import org.academiadecodigo.rememberthename.model.AbstractModel;
-import org.academiadecodigo.rememberthename.model.Customer;
-import org.academiadecodigo.rememberthename.model.Reservation;
+import org.academiadecodigo.rememberthename.persistence.model.AbstractModel;
+import org.academiadecodigo.rememberthename.persistence.model.Customer;
+import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 
 import java.util.*;
 import java.util.stream.Collectors;

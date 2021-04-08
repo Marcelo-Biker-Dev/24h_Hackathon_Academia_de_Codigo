@@ -1,4 +1,4 @@
-package org.academiadecodigo.rememberthename.model;
+package org.academiadecodigo.rememberthename.persistence.model;
 
 public interface Model {
 

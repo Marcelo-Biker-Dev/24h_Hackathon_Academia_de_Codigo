@@ -1,10 +1,6 @@
 package org.academiadecodigo.rememberthename.service;
 
-import org.academiadecodigo.rememberthename.model.Reservation;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 
 public class ReservationServiceImpl extends AbstractService<Reservation> implements ReservationService{
 

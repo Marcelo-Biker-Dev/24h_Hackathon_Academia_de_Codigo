@@ -1,6 +1,6 @@
 package org.academiadecodigo.rememberthename.service;
 
-import org.academiadecodigo.rememberthename.model.Customer;
+import org.academiadecodigo.rememberthename.persistence.model.Customer;
 
 import java.util.List;
 import java.util.Set;
