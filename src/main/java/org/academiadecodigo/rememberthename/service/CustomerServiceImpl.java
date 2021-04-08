@@ -50,4 +50,14 @@ public class CustomerServiceImpl extends AbstractService<Customer> implements Cu
                 .map(AbstractModel::getId)
                 .collect(Collectors.toSet());
     }
+
+    @Override
+    public Reservation addReservation(Integer cid, Reservation convert) {
+        return null;
+    }
+
+    @Override
+    public void closeReservation(Integer cid, Integer aid) {
+
+    }
 }
