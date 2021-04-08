@@ -5,7 +5,7 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <display-name>Java Bank</display-name>
+    <display-name>Remember the Name</display-name>
 
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
@@ -43,6 +43,7 @@
         This is useful because current browsers typically do not
         set a character encoding even if specified in the HTML page or form
      -->
+
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
