@@ -9,6 +9,8 @@ import java.util.Date;
 
 public class ReservationDto {
 
+    private Integer id;
+
     @NotNull
     @NotBlank
     private String name;
@@ -52,5 +54,13 @@ public class ReservationDto {
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
