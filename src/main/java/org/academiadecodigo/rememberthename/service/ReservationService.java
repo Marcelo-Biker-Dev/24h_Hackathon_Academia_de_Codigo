@@ -6,5 +6,5 @@ public interface ReservationService {
 
     Reservation get(Integer id);
 
-    Integer add(Reservation reservation);
+
 }

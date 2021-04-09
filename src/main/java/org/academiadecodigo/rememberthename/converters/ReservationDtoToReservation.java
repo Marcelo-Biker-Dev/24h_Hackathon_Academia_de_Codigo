@@ -5,7 +5,9 @@ import org.academiadecodigo.rememberthename.persistence.model.Customer;
 import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 import org.academiadecodigo.rememberthename.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReservationDtoToReservation extends AbstractConverter<ReservationDto, Reservation>{
 
     private ReservationService reservationService;

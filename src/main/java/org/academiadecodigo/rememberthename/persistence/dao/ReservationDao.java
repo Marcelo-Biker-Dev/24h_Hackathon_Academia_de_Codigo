@@ -1,4 +1,7 @@
 package org.academiadecodigo.rememberthename.persistence.dao;
 
-public interface ReservationDao {
+import org.academiadecodigo.rememberthename.persistence.model.Reservation;
+
+public interface ReservationDao extends Dao<Reservation>{
+
 }

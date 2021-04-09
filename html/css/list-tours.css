@@ -3,7 +3,7 @@ body {
 }
 
 .background-div {
-    background-image: url("cover.jpg");
+    background-image: url("resources/cover.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
     height: 200px;
@@ -34,7 +34,6 @@ h3 {
 }
 
 .second-div {
-    background: grey;
     height: 100vh;
 }
 
@@ -686,7 +685,6 @@ body.dark .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .list-tours-box {
     width: 100%;
     margin: auto;
-    background-color: rgba(1, 53, 165, 0.5);
     padding: 3%;
 }
 
@@ -696,7 +694,7 @@ textarea {
 }
 
 .cover-image {
-    background-image: url("/resources/miradouro-cover.jpg");
+    background-image: url("../resources/miradouro.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
     height: 200px;
@@ -715,7 +713,6 @@ textarea {
 }
 
 .images-div-tours {
-    background-color: cadetblue;
     margin: auto;
     padding: 3%;
     width: 100%;
@@ -733,4 +730,10 @@ textarea {
     padding: 3%;
     justify-content: center;
     text-align: center;
+}
+
+.big-box-div {
+    background-image: url("resources/parapente7c.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
 }

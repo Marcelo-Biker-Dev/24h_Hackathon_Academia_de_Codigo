@@ -12,11 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class RestIndexController {
 
-    /**
-     * Retrieves the API name and version
-     *
-     * @return the response
-     */
     @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
     @ResponseBody
     protected ApiVersion showVersion() {

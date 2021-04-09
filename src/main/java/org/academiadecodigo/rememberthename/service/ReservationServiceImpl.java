@@ -1,24 +1,30 @@
 package org.academiadecodigo.rememberthename.service;
 
+import org.academiadecodigo.rememberthename.persistence.dao.CustomerDao;
+import org.academiadecodigo.rememberthename.persistence.dao.ReservationDao;
 import org.academiadecodigo.rememberthename.persistence.model.Reservation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class ReservationServiceImpl extends AbstractService<Reservation> implements ReservationService{
+@Service
+public class ReservationServiceImpl implements ReservationService{
 
+    private ReservationDao reservationDao;
+    private CustomerDao customerDao;
 
     @Override
     public Reservation get(Integer id) {
-        return modelMap.get(id);
+        return reservationDao.findById(id);
     }
 
-    @Override
-    public Integer add(Reservation reservation) {
 
-        if (reservation.getId() == null) {
-            reservation.setId(getNextId());
-        }
+    @Autowired
+    public void setReservationDao(ReservationDao reservationDao) {
+        this.reservationDao = reservationDao;
+    }
 
-        modelMap.put(reservation.getId(), reservation);
-
-        return reservation.getId();
+    @Autowired
+    public void setCustomerDao(CustomerDao customerDao) {
+        this.customerDao = customerDao;
     }
 }
