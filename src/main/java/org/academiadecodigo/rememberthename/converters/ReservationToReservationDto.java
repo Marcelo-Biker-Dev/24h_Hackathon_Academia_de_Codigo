@@ -2,7 +2,9 @@ package org.academiadecodigo.rememberthename.converters;
 
 import org.academiadecodigo.rememberthename.command.ReservationDto;
 import org.academiadecodigo.rememberthename.persistence.model.Reservation;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReservationToReservationDto extends AbstractConverter<Reservation, ReservationDto> {
 
 

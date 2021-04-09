@@ -5,7 +5,9 @@ import org.academiadecodigo.rememberthename.persistence.model.Customer;
 import org.academiadecodigo.rememberthename.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomerDtoToCustomer implements Converter<CustomerDto, Customer> {
 
     private CustomerService customerService;
