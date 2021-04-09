@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -25,7 +26,7 @@
                     <div class="col-12">
                         <nav class="navbar navbar-expand-md navbar-light">
 
-                            <a class="navbar-brand" href="https://front.codes/" target="_blank">Remember Your Name</a>
+                            <a class="navbar-brand" href="index.html">Remember Your Name</a>
 
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 							<span class="navbar-toggler-icon"></span>
@@ -195,45 +196,36 @@
 
 
                     <div class="testbox">
-                        <form action="/">
+                        <form action="">
                             <div class="item">
                                 <p>Name</p>
                                 <div class="name-item">
-                                    <input type="text" name="name" placeholder="First" required/>
+                                    <input type="text" name="name" placeholder="First" id="firstName" required/>
                                 </div>
                             </div>
                             <div class="item">
                                 <p>Email</p>
-                                <input type="email" name="name" required/>
+                                <input type="email" name="name" id="email" required/>
                             </div>
                             <div class="item">
                                 <p>Phone</p>
-                                <input type="number" name="name" required/>
+                                <input type="number" name="name" id="phone" required/>
                             </div>
                             <div class="item">
                                 <p>Number of Passengers</p>
-                                <input type="number" name="name" required/>
+                                <input type="number" name="name" id="numberCustomer" required/>
                             </div>
-
                             <div class="item">
                                 <p>Pick Up Date</p>
                                 <input type="date" name="bdate" />
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
                             <div class="item">
-                                <p>Pick Up Point</p>
-                                <input type="text" name="name" placeholder="Street address" required/>
-                            </div>
-                            <div class="item">
-                                <p><input type="text" name="name" placeholder="City" required/></p>
-                            </div>
-
-                            <div class="item">
                                 <p>Notes</p>
-                                <textarea rows="3"></textarea>
+                                <textarea rows="3" id="notes"></textarea>
                             </div>
                             <div class="btn-block">
-                                <button class="btn btn-warning btn-block" type="submit" href="/">SEND</button>
+                                <button class="btn btn-warning btn-block" id="submit" type="submit" href="/">SEND</button>
                             </div>
                         </form>
                     </div>
