@@ -4,7 +4,7 @@ $(document).ready(function() {
     });
     $("#submit").click(function(event) {
         $.ajax({
-            url: 'http://localhost:8080/rememberthename/api/customer/',
+            url: 'http://192.168.1.118:8080/rememberthename/api/customer/',
             type: 'POST',
             data: JSON.stringify({
                 firstName: $('#firstName').val(),
