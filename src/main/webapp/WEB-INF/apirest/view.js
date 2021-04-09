@@ -3,14 +3,14 @@ $(document).ready(function() {
     var lastNumber = window.location.href.match(/\d+$/);
 
     $.ajax({
-        url: 'http://localhost:8080/javabank5/api/customer/' + lastNumber,
+        url: 'http://localhost:8080/rememberthename/api/customer/' + lastNumber,
         async: true,
         success: successCallback,
         error: errorCallback
     });
 
     $.ajax({
-        url: 'http://localhost:8080/javabank5/api/customer/' + lastNumber + '/account',
+        url: 'http://localhost:8080/rememberthename/api/customer/' + lastNumber + '/account',
         async: true,
         success: successCallbackAccount,
         error: errorCallback

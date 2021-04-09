@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service
 public class CustomerServiceImpl implements CustomerService{
 
     private CustomerDao customerDao;

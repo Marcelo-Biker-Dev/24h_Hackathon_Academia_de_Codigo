@@ -1,4 +1,5 @@
 package org.academiadecodigo.rememberthename.controller.rest;
+
 import org.academiadecodigo.rememberthename.command.ReservationDto;
 import org.academiadecodigo.rememberthename.converters.ReservationDtoToReservation;
 import org.academiadecodigo.rememberthename.converters.ReservationToReservationDto;
@@ -6,6 +7,8 @@ import org.academiadecodigo.rememberthename.persistence.model.Customer;
 import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 import org.academiadecodigo.rememberthename.service.CustomerService;
 import org.academiadecodigo.rememberthename.service.ReservationService;
+import org.academiadecodigo.rememberthename.service.mock.CustomerServiceMockImpl;
+import org.academiadecodigo.rememberthename.service.mock.ReservationServiceMockImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,34 +30,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/customer")
 public class RestReservationController {
 
-    private CustomerService customerService;
-    private ReservationService reservationService;
-    private ReservationDtoToReservation reservationDtoToReservation;
-    private ReservationToReservationDto reservationToReservationDto;
+    private CustomerServiceMockImpl customerService;
+    private ReservationServiceMockImpl reservationService;
 
 
     @Autowired
-    public void setCustomerService(CustomerService customerService) {
+    public void setCustomerService(CustomerServiceMockImpl customerService) {
         this.customerService = customerService;
     }
 
     @Autowired
-    public void setAccountService(ReservationService reservationService) {
+    public void setAccountService(ReservationServiceMockImpl reservationService) {
         this.reservationService = reservationService;
     }
 
-    @Autowired
-    public void setAccountToAccountDto(ReservationToReservationDto reservationToReservationDto) {
-        this.reservationToReservationDto = reservationToReservationDto;
-    }
-
-    @Autowired
-    public void setAccountDtoToAccount(ReservationDtoToReservation reservationDtoToReservation) {
-        this.reservationDtoToReservation = reservationDtoToReservation;
-    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/reservations")
-    public ResponseEntity<List<ReservationDto>> listCustomerReservations(@PathVariable Integer cid) {
+    public ResponseEntity<List<Reservation>> listCustomerReservations(@PathVariable Integer cid) {
 
         Customer customer = customerService.get(cid);
 
@@ -62,13 +54,14 @@ public class RestReservationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        List<ReservationDto> reservationDtos = customer.getReservations().stream().map(reservation -> reservationToReservationDto.convert(reservation)).collect(Collectors.toList());
+        List<Reservation> reservation = customer.getReservations();
 
-        return new ResponseEntity<>(reservationDtos, HttpStatus.OK);
+
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/reservations/{aid}")
-    public ResponseEntity<ReservationDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/reservation/{aid}")
+    public ResponseEntity<Reservation> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
         Reservation reservation = reservationService.get(aid);
 
@@ -80,49 +73,36 @@ public class RestReservationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(reservationToReservationDto.convert(reservation), HttpStatus.OK);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
     }
 
 
-    @RequestMapping(method = RequestMethod.POST, path = "/{cid}/account")
-    public ResponseEntity<?> addAccount(@PathVariable Integer cid, @Valid @RequestBody ReservationDto reservationDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
+    @RequestMapping(method = RequestMethod.POST, path = "/{cid}/reservation")
+    public ResponseEntity<?> addAccount(@PathVariable Integer cid, @Valid @RequestBody Reservation reservation, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
-        if (bindingResult.hasErrors() || reservationDto.getId() != null) {
+        if (bindingResult.hasErrors() || reservation.getId() != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        try {
 
-            Reservation reservation = customerService.addReservation(cid, reservationDtoToReservation.convert(reservationDto));
+        customerService.addReservation(cid, reservation);
 
-            UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + cid + "/account/" + reservation.getId()).build();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setLocation(uriComponents.toUri());
+        UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + cid + "/account/" + reservation.getId()).build();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(uriComponents.toUri());
 
-            return new ResponseEntity<>(headers, HttpStatus.CREATED);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
 
-    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account/{aid}/close")
+    @RequestMapping(method = RequestMethod.GET, path = "/{cid}/reservation/{aid}/close")
     public ResponseEntity<?> closeAccount(@PathVariable Integer cid, @PathVariable Integer rid) {
 
-        try {
+        customerService.deleteReservation(cid, rid);
 
-            customerService.deleteReservation(cid, rid);
+        return new ResponseEntity<>(HttpStatus.OK);
 
-            return new ResponseEntity<>(HttpStatus.OK);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
 

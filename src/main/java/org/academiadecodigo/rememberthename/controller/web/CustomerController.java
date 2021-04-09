@@ -7,7 +7,9 @@ import org.academiadecodigo.rememberthename.converters.CustomerToCustomerDto;
 import org.academiadecodigo.rememberthename.converters.ReservationDtoToReservation;
 import org.academiadecodigo.rememberthename.converters.ReservationToReservationDto;
 import org.academiadecodigo.rememberthename.persistence.model.Customer;
+import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 import org.academiadecodigo.rememberthename.service.CustomerService;
+import org.academiadecodigo.rememberthename.service.mock.CustomerServiceMockImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,47 +26,24 @@ import javax.validation.Valid;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private CustomerService customerService;
+    private CustomerServiceMockImpl customerService;
 
-    private CustomerToCustomerDto customerToCustomerDto;
-    private CustomerDtoToCustomer customerDtoToCustomer;
-    private ReservationToReservationDto reservationToReservationDto;
-    private ReservationDtoToReservation reservationDtoToReservation;
 
     @Autowired
-    public void setCustomerService(CustomerService customerService) {
+    public void setCustomerService(CustomerServiceMockImpl customerService) {
         this.customerService = customerService;
     }
 
-    @Autowired
-    public void setCustomerToCustomerDto(CustomerToCustomerDto customerToCustomerDto) {
-        this.customerToCustomerDto = customerToCustomerDto;
-    }
-
-    @Autowired
-    public void setCustomerDtoToCustomer(CustomerDtoToCustomer customerDtoToCustomer) {
-        this.customerDtoToCustomer = customerDtoToCustomer;
-    }
-
-    @Autowired
-    public void setReservationToReservationDto(ReservationToReservationDto reservationToReservationDto) {
-        this.reservationToReservationDto = reservationToReservationDto;
-    }
-
-    @Autowired
-    public void setReservationDtoToReservation(ReservationDtoToReservation reservationDtoToReservation) {
-        this.reservationDtoToReservation = reservationDtoToReservation;
-    }
 
     @RequestMapping(method = RequestMethod.GET, path = "/add")
     public String addCustomer(Model model) {
-        model.addAttribute("customer", new CustomerDto());
+        model.addAttribute("customer", new Customer());
         return "1234";
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}/edit")
     public String editCustomer(@PathVariable Integer id, Model model) {
-        model.addAttribute("customer", customerToCustomerDto.convert(customerService.get(id)));
+        model.addAttribute("customer", customerService.get(id));
         return "124";
     }
 
@@ -74,25 +53,25 @@ public class CustomerController {
         Customer customer = customerService.get(id);
 
         // command objects for customer show view
-        model.addAttribute("customer", customerToCustomerDto.convert(customer));
-        model.addAttribute("reservation", reservationToReservationDto.convert(customer.getReservations()));
+        model.addAttribute("customer", customer);
+        model.addAttribute("reservation", customer.getReservations());
 
         // command objects for modals
-        ReservationDto reservationDto = new ReservationDto();
+        Reservation reservation = new Reservation();
 
-        model.addAttribute("reservation", reservationDto);
+        model.addAttribute("reservation", reservation);
 
         return "1235";
     }
 
     @RequestMapping(method = RequestMethod.POST, path = {"/", ""}, params = "action=save")
-    public String saveCustomer(@Valid @ModelAttribute("customer") CustomerDto customerDto, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             return "customer/add-update";
         }
 
-        Customer savedCustomer = customerService.save(customerDtoToCustomer.convert(customerDto));
+        Customer savedCustomer = customerService.save(customer);
 
         return "redirect:/customer/" + savedCustomer.getId();
     }

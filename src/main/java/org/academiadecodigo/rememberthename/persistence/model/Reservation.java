@@ -3,7 +3,6 @@ package org.academiadecodigo.rememberthename.persistence.model;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.util.Date;
 
 @Entity
 @Table(name = "reservation")
@@ -11,7 +10,7 @@ public class Reservation extends AbstractModel {
 
     private String name;
     private int numberOfClients;
-    private Date pickUpDate;
+    private int pickUpDate;
 
     @ManyToOne
     private Customer customer;
@@ -40,11 +39,11 @@ public class Reservation extends AbstractModel {
         this.numberOfClients = numberOfClients;
     }
 
-    public Date getPickUpDate() {
+    public int getPickUpDate() {
         return pickUpDate;
     }
 
-    public void setPickUpDate(Date pickUpDate) {
+    public void setPickUpDate(int pickUpDate) {
         this.pickUpDate = pickUpDate;
     }
 }

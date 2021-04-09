@@ -26,7 +26,6 @@ public class ReservationDtoToReservation extends AbstractConverter<ReservationDt
         reservation.setId(reservationDto.getId());
         reservation.setName(reservationDto.getName());
         reservation.setNumberOfClients(reservationDto.getNumberOfClients());
-        reservation.setPickUpDate(reservationDto.getPickUpDate());
 
         return reservation;
 

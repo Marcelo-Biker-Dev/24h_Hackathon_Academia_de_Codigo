@@ -6,6 +6,7 @@ import org.academiadecodigo.rememberthename.converters.CustomerDtoToCustomer;
 import org.academiadecodigo.rememberthename.converters.CustomerToCustomerDto;
 import org.academiadecodigo.rememberthename.persistence.model.Customer;
 import org.academiadecodigo.rememberthename.service.CustomerService;
+import org.academiadecodigo.rememberthename.service.mock.CustomerServiceMockImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,38 +28,25 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/customer")
 public class RestCustomerController {
 
-    private CustomerService customerService;
-    private CustomerDtoToCustomer customerDtoToCustomer;
-    private CustomerToCustomerDto customerToCustomerDto;
+    private CustomerServiceMockImpl customerService;
 
 
     @Autowired
-    public void setCustomerService(CustomerService customerService) {
+    public void setCustomerService(CustomerServiceMockImpl customerService) {
         this.customerService = customerService;
     }
 
-    @Autowired
-    public void setCustomerDtoToCustomer(CustomerDtoToCustomer customerDtoToCustomer) {
-        this.customerDtoToCustomer = customerDtoToCustomer;
-    }
-
-    @Autowired
-    public void setCustomerToCustomerDto(CustomerToCustomerDto customerToCustomerDto) {
-        this.customerToCustomerDto = customerToCustomerDto;
-    }
 
     @RequestMapping(method = RequestMethod.GET, path = {"/", ""})
-    public ResponseEntity<List<CustomerDto>> listCustomers() {
+    public ResponseEntity<List<Customer>> listCustomers() {
 
-        List<CustomerDto> customerDto = customerService.list().stream()
-                .map(customer -> customerToCustomerDto.convert(customer))
-                .collect(Collectors.toList());
+        List<Customer> customer = customerService.list();
 
-        return new ResponseEntity<>(customerDto, HttpStatus.OK);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<CustomerDto> showCustomer(@PathVariable Integer id) {
+    public ResponseEntity<Customer> showCustomer(@PathVariable Integer id) {
 
         Customer customer = customerService.get(id);
 
@@ -66,17 +54,17 @@ public class RestCustomerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(customerToCustomerDto.convert(customer), HttpStatus.OK);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.POST, path = {"/", ""})
-    public ResponseEntity<?> addCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<?> addCustomer(@Valid @RequestBody Customer customer, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
-        if (bindingResult.hasErrors() || customerDto.getId() != null) {
+        if (bindingResult.hasErrors() || customer.getId() != null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Customer savedCustomer = customerService.save(customerDtoToCustomer.convert(customerDto));
+        Customer savedCustomer = customerService.save(customer);
 
         // get help from the framework building the path for the newly created resource
         UriComponents uriComponents = uriComponentsBuilder.path("/api/customer/" + savedCustomer.getId()).build();
@@ -89,14 +77,14 @@ public class RestCustomerController {
     }
 
 
-    @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-    public ResponseEntity<CustomerDto> editCustomer(@Valid @RequestBody CustomerDto customerDto, BindingResult bindingResult, @PathVariable Integer id) {
+    @RequestMapping(method = RequestMethod.PUT, path = "/{id}/edit.html")
+    public ResponseEntity<Customer> editCustomer(@Valid @RequestBody Customer customer, BindingResult bindingResult, @PathVariable Integer id) {
 
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        if (customerDto.getId() != null && !customerDto.getId().equals(id)) {
+        if (customer.getId() != null && !customer.getId().equals(id)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -104,23 +92,18 @@ public class RestCustomerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        customerDto.setId(id);
+        customer.setId(id);
 
-        customerService.save(customerDtoToCustomer.convert(customerDto));
+        customerService.save(customer);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    public ResponseEntity<CustomerDto> deleteCustomer(@PathVariable Integer id) {
+    public ResponseEntity<Customer> deleteCustomer(@PathVariable Integer id) {
 
-        try {
+        customerService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
-            customerService.delete(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

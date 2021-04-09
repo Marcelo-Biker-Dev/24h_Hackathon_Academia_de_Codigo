@@ -53,6 +53,6 @@ javabank.onreadystatechange = function() {
 };
 
 
-javabank.open('GET', 'http://localhost:8080/javabank5/api/customer', true);
+javabank.open('GET', 'http://localhost:8080/rememberthename/api/customer', true);
 javabank.setRequestHeader('Content-type', 'application/json');
 javabank.send();

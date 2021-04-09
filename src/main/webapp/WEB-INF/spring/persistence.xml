@@ -6,10 +6,10 @@
     <import resource="./persistence/persistence-prod.xml"/>
     <import resource="./persistence/persistence-dev.xml"/>
 
-    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--<tx:annotation-driven transaction-manager="transactionManager"/>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="emFactory" />
     </bean>
-
+    -->
 </beans>

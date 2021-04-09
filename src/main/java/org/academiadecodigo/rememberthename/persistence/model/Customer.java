@@ -2,6 +2,7 @@ package org.academiadecodigo.rememberthename.persistence.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -13,6 +14,22 @@ public class Customer extends AbstractModel{
     private String lastName;
     private String email;
     private String phone;
+    private Date date;
+    private String notes;
+    private int numberOfCustomer;
+
+    public int getNumberOfCustomer() {
+        return numberOfCustomer;
+    }
+
+    public void setNumberOfCustomer(int numberOfCustomer) {
+        this.numberOfCustomer = numberOfCustomer;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
 
     @OneToMany(
             cascade = {CascadeType.ALL},
@@ -22,8 +39,6 @@ public class Customer extends AbstractModel{
     )
     private List<Reservation> reservations = new ArrayList<>();
 
-    public Customer() {
-    }
 
     public List<Reservation> getReservations() {
         return reservations;
@@ -70,5 +85,21 @@ public class Customer extends AbstractModel{
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }

@@ -1,5 +1,6 @@
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/converters/ReservationDtoToReservation.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/persistence/model/AbstractModel.java
+/Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/service/mock/CustomerServiceMockImpl.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/controller/web/CustomerController.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/service/ReservationService.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/persistence/dao/CustomerDao.java
@@ -9,8 +10,10 @@
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/controller/rest/RestIndexController.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/controller/rest/RestCustomerController.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/converters/AbstractConverter.java
+/Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/service/mock/AbstractMockService.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/service/ReservationServiceImpl.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/converters/CustomerToCustomerDto.java
+/Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/service/mock/ReservationServiceMockImpl.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/SpringBootstrap.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/converters/ReservationToReservationDto.java
 /Users/codecadet/workspace/hackathon24hr/src/main/java/org/academiadecodigo/rememberthename/persistence/dao/ReservationDao.java

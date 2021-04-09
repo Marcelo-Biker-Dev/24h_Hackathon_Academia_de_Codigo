@@ -1,5 +1,5 @@
 $.ajax({
-    url: 'http://localhost:8080/javabank5/api/customer',
+    url: 'http://localhost:8080/rememberthename/api/customer',
     async: true,
     success: successCallback,
     error: errorCallback
@@ -23,9 +23,9 @@ function successCallback(response) {
             $('#javabankTable tr:last').append('<td>' + element[property] + '</td>')
 
         })
-        $('#javabankTable tr:last').append('<td><a href=' + element['id'] + "/apirest/view.htmliew.html?>View</a></td>")
-        $('#javabankTable tr:last').append('<td><a href=' + element['id'] + "/apirest/edit.htmldit.html?>Edit</a></td>")
-        $('#javabankTable tr:last').append('<td><a href=' + element['id'] + "/apirest/delete.htmlete.html?> Delete</a></td>")
+        $('#javabankTable tr:last').append('<td><a href=' + /*element['id']*/"/view.html>View</a></td>")
+        $('#javabankTable tr:last').append('<td><a href=' + element['id'] + "/edit.html>Edit</a></td>")
+        $('#javabankTable tr:last').append('<td><a href=' + element['id'] + "/delete.html> Delete</a></td>")
 
     });
 
@@ -43,7 +43,7 @@ $(".delete").click(function(e) {
 $(".delete").click(function(event) {
 
     $.ajax({
-        url: 'http://localhost:8080/javabank5/api/customer/6',
+        url: 'http://localhost:8080/rememberthename/api/customer/1',
         type: 'DELETE',
         async: true,
         contentType: 'application/json;charset=UTF-8',

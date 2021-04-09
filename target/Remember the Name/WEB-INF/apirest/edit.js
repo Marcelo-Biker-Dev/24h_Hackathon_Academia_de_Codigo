@@ -8,7 +8,7 @@ $(document).ready(function() {
     var lastNumber = window.location.href.match(/\d+$/);
 
     $.ajax({
-        url: 'http://localhost:8080/javabank5/api/customer/' + lastNumber,
+        url: 'http://localhost:8080/rememberthename/api/customer/' + lastNumber,
         async: true,
         success: successCallback,
         error: errorCallback
@@ -40,7 +40,7 @@ $(document).ready(function() {
 
         $.ajax({
 
-            url: 'http://localhost:8080/javabank5/api/customer/' + lastNumber,
+            url: 'http://localhost:8080/rememberthename/api/customer/' + lastNumber,
             type: 'PUT',
             data: JSON.stringify({
                 firstName: $('#firstName').val(),

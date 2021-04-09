@@ -9,7 +9,7 @@ $(document).ready(function() {
 
         $.ajax({
 
-            url: 'http://localhost:8080/javabank5/api/customer',
+            url: 'http://localhost:8080/rememberthename/api/customer/',
             type: 'POST',
             data: JSON.stringify({
                 firstName: $('#firstName').val(),

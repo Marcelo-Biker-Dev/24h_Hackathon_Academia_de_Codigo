@@ -5,7 +5,7 @@ function deleteCustomer() {
     console.log(lastNumber);
     $.ajax({
 
-        url: 'http://localhost:8080/javabank5/api/customer/' + lastNumber,
+        url: 'http://localhost:8080/rememberthename/api/customer/' + lastNumber,
         type: 'DELETE',
         async: true,
         contentType: 'application/json;charset=UTF-8',

@@ -26,6 +26,8 @@
         <param-value>dev</param-value>
     </context-param>
 
+
+
     <!--
         This is useful because current browsers typically do not
         set a character encoding even if specified in the HTML page or form
@@ -41,6 +43,7 @@
             <param-name>forceEncoding</param-name>
             <param-value>true</param-value>
         </init-param>
+
     </filter>
 
     <filter-mapping>

@@ -5,6 +5,7 @@ import org.academiadecodigo.rememberthename.converters.CustomerToCustomerDto;
 import org.academiadecodigo.rememberthename.converters.ReservationDtoToReservation;
 import org.academiadecodigo.rememberthename.persistence.model.Reservation;
 import org.academiadecodigo.rememberthename.service.CustomerService;
+import org.academiadecodigo.rememberthename.service.mock.CustomerServiceMockImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -20,34 +21,21 @@ import javax.validation.Valid;
 @RequestMapping("/customer")
 public class ReservationController {
 
-    private CustomerService customerService;
+    private CustomerServiceMockImpl customerService;
 
-    private ReservationDtoToReservation reservationDtoToReservation;
-    private CustomerToCustomerDto customerToCustomerDto;
 
     @Autowired
-    public void setReservationDtoToReservation(ReservationDtoToReservation reservationDtoToReservation) {
-        this.reservationDtoToReservation = reservationDtoToReservation;
-    }
-
-    @Autowired
-    public void setCustomerToCustomerDto(CustomerToCustomerDto customerToCustomerDto) {
-        this.customerToCustomerDto = customerToCustomerDto;
-    }
-
-    @Autowired
-    public void setCustomerService(CustomerService customerService) {
+    public void setCustomerService(CustomerServiceMockImpl customerService) {
         this.customerService = customerService;
     }
 
     @RequestMapping(method = RequestMethod.POST, path = {"/{cid}/reservation"})
-    public String addAccount(@PathVariable Integer cid, @Valid @ModelAttribute("reservation") ReservationDto reservationDto, BindingResult bindingResult) {
+    public String addAccount(@PathVariable Integer cid, @Valid @ModelAttribute("reservation") Reservation reservation, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return "redirect:/customer/" + cid;
         }
 
-        Reservation reservation = reservationDtoToReservation.convert(reservationDto);
         customerService.addReservation(cid, reservation);
         return "redirect:/customer/" + cid;
 
