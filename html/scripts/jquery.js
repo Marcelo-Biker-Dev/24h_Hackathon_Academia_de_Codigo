@@ -25,7 +25,7 @@ $(document).ready(function() {
     }
 
     function redirect() {
-        window.location = "XMLindexJQuery.html"
+        window.location = "thanks.html"
     }
 
     function successCallback(response) {
