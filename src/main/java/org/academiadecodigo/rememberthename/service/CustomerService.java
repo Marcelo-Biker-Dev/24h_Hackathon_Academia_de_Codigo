@@ -16,9 +16,9 @@ public interface CustomerService {
 
     List<Customer> list();
 
-    Set<Integer> listCustomerReservationIds(Integer id);
+    Set<Integer> listCustomerReservationIds(Customer customer);
 
-    Reservation addReservation(Integer cid, Reservation convert);
+    Reservation addReservation(Integer id, Reservation reservation);
 
-    void closeReservation(Integer cid, Integer aid);
+    void deleteReservation(Integer id, Integer aid);
 }

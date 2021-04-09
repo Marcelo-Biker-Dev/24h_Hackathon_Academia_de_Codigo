@@ -32,52 +32,27 @@ public class RestReservationController {
     private ReservationDtoToReservation reservationDtoToReservation;
     private ReservationToReservationDto reservationToReservationDto;
 
-    /**
-     * Sets the customer service
-     *
-     * @param customerService the customer service to set
-     */
+
     @Autowired
     public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
     }
 
-    /**
-     * Sets the account service
-     *
-     * @param reservationService the account service to set
-     */
     @Autowired
     public void setAccountService(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
 
-    /**
-     * Sets the converter for converting between account model object and account DTO
-     *
-     * @param reservationToReservationDto the account model object to account DTO converter to set
-     */
     @Autowired
     public void setAccountToAccountDto(ReservationToReservationDto reservationToReservationDto) {
         this.reservationToReservationDto = reservationToReservationDto;
     }
 
-    /**
-     * Sets the converter for converting between account DTO and account model objects
-     *
-     * @param reservationDtoToReservation the account DTO to account converter to set
-     */
     @Autowired
     public void setAccountDtoToAccount(ReservationDtoToReservation reservationDtoToReservation) {
         this.reservationDtoToReservation = reservationDtoToReservation;
     }
 
-    /**
-     * Retrieves a representation of the given customer accounts
-     *
-     * @param cid the customer id
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/reservations")
     public ResponseEntity<List<ReservationDto>> listCustomerReservations(@PathVariable Integer cid) {
 
@@ -92,13 +67,6 @@ public class RestReservationController {
         return new ResponseEntity<>(reservationDtos, HttpStatus.OK);
     }
 
-    /**
-     * Retrieves a representation of the customer account
-     *
-     * @param cid the customer id
-     * @param aid the account id
-     * @return the response entity
-     */
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/reservations/{aid}")
     public ResponseEntity<ReservationDto> showCustomerAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
 
@@ -115,15 +83,7 @@ public class RestReservationController {
         return new ResponseEntity<>(reservationToReservationDto.convert(reservation), HttpStatus.OK);
     }
 
-    /**
-     * Adds an account
-     *
-     * @param cid                  the customer id
-     * @param reservationDto           the account DTO
-     * @param bindingResult        the binding result object
-     * @param uriComponentsBuilder the uri components builder object
-     * @return the response entity
-     */
+
     @RequestMapping(method = RequestMethod.POST, path = "/{cid}/account")
     public ResponseEntity<?> addAccount(@PathVariable Integer cid, @Valid @RequestBody ReservationDto reservationDto, BindingResult bindingResult, UriComponentsBuilder uriComponentsBuilder) {
 
@@ -149,19 +109,13 @@ public class RestReservationController {
         return null;
     }
 
-    /**
-     * Closes an account
-     *
-     * @param cid the customer id
-     * @param aid the accound id
-     * @return the response entity
-     */
+
     @RequestMapping(method = RequestMethod.GET, path = "/{cid}/account/{aid}/close")
-    public ResponseEntity<?> closeAccount(@PathVariable Integer cid, @PathVariable Integer aid) {
+    public ResponseEntity<?> closeAccount(@PathVariable Integer cid, @PathVariable Integer rid) {
 
         try {
 
-            customerService.closeReservation(cid, aid);
+            customerService.deleteReservation(cid, rid);
 
             return new ResponseEntity<>(HttpStatus.OK);
 

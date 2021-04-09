@@ -1,4 +1,7 @@
 package org.academiadecodigo.rememberthename.persistence.dao;
 
-public interface CustomerDao {
+import org.academiadecodigo.rememberthename.persistence.model.Customer;
+
+public interface CustomerDao extends Dao<Customer>{
+
 }

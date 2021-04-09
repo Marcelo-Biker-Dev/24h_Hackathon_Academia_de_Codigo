@@ -2,7 +2,9 @@ package org.academiadecodigo.rememberthename.converters;
 
 import org.academiadecodigo.rememberthename.command.CustomerDto;
 import org.academiadecodigo.rememberthename.persistence.model.Customer;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomerToCustomerDto extends AbstractConverter<Customer, CustomerDto> {
 
 
