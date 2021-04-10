@@ -4,15 +4,14 @@
 Hackathon project made in 24hrs in a BootCamp. <Academia de codigo_>
 
 ## Features
-
-- feature1
-- feature2
-- feature3
+- Navigate through the website
+- Login & sign in
+- A page for the companies control
 
 ## Technologies:
 - The application uses MVC + services pattern through Spring annotations and is interface-driven
 - For persistence it uses a MySql database with Hibernate and Jpa for easy many-to-many relationships, optimistic locking etc.
-- Views are handled by Thymeleaf template engine
+- Views are in Html, Css and Bootstrap
 
 ----
 ### Group:
