@@ -2,6 +2,12 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+a,
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+
 .background-div {
     background-image: url("resources/cover.jpg");
     background-repeat: no-repeat;
@@ -730,10 +736,4 @@ textarea {
     padding: 3%;
     justify-content: center;
     text-align: center;
-}
-
-.big-box-div {
-    background-image: url("resources/parapente7c.jpg");
-    background-size: 100%;
-    background-repeat: no-repeat;
 }
